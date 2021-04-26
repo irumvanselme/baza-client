@@ -12,7 +12,7 @@ export function RightSidebar() {
         const fetchData = async () => {
             let { data } = await QuestionsService.trending();
             setQuestions(data);
-            setLoading(true);
+            setLoading(false);
         };
         fetchData().then();
     }, []);
@@ -25,11 +25,22 @@ export function RightSidebar() {
                         Trending questions
                     </h5>
                     <div className="card-body">
-                    {loading && [1, 2,3,4,5,6,7,8].map(ele => (
-                            <>
-                                <Skeleton key={ele} width={((Math.ceil(Math.random() * 4) + 6) * 10)+"%"}/>
-                            </>
-                        ))}
+                        {loading &&
+                            [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13].map(
+                                (ele) => (
+                                    <>
+                                        <Skeleton
+                                            key={ele}
+                                            width={
+                                                (Math.ceil(Math.random() * 4) +
+                                                    6) *
+                                                    10 +
+                                                "%"
+                                            }
+                                        />
+                                    </>
+                                )
+                            )}
                         {!loading &&
                             questions.map((question, i) => (
                                 <div className="py-1" key={i}>
