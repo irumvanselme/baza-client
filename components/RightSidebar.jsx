@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import QuestionsService from "../services/questions.service";
 import Footer from "./Footer";
+import Skeleton from "react-loading-skeleton";
 
 export function RightSidebar() {
     const [questions, setQuestions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             let { data } = await QuestionsService.trending();
             setQuestions(data);
+            setLoading(true);
         };
         fetchData().then();
     }, []);
@@ -22,13 +25,22 @@ export function RightSidebar() {
                         Trending questions
                     </h5>
                     <div className="card-body">
-                        {questions.map((question, i) => (
-                            <div className="py-1" key={i}>
-                                <Link href={`/questions/${question.slug}`} passHref>
-                                    <a>{question.title} ?</a>
-                                </Link>
-                            </div>
+                    {loading && [1, 2,3,4,5,6,7,8].map(ele => (
+                            <>
+                                <Skeleton key={ele} width={((Math.ceil(Math.random() * 4) + 6) * 10)+"%"}/>
+                            </>
                         ))}
+                        {!loading &&
+                            questions.map((question, i) => (
+                                <div className="py-1" key={i}>
+                                    <Link
+                                        href={`/questions/${question.slug}`}
+                                        passHref
+                                    >
+                                        <a>{question.title} ?</a>
+                                    </Link>
+                                </div>
+                            ))}
                     </div>
                 </div>
                 <div className="card mt-3 p-2">
