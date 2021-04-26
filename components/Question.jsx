@@ -117,7 +117,7 @@ export function Question({ question, loading = false }) {
                             </div>
                         </div>
                     </div>
-                    <div className="body py-3">
+                    <div className="body py-3 text-left">
                         <Skeleton width={"80%"} />
                         <Skeleton width={"60%"} />
                     </div>
