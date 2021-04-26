@@ -37,14 +37,14 @@ export default function Question({ question }) {
     }, [question]);
 
     const answered = (answer) => {
-        setAnswers(answers => [answer, ...answers])
-    }
+        setAnswers((answers) => [answer, ...answers]);
+    };
 
     return (
         <DefaultLayout meta={{ title: `${question.title} - baza.com` }}>
             <div className="row">
                 <div className="col-12 col-lg-8 offset-md-1 px-2">
-                    <QuestionDetails question={question} answered={answered}/>
+                    <QuestionDetails question={question} answered={answered} />
                     {answers.length > 0 ? (
                         <>
                             <div className="col-lg-10 mx-0 px-0">
