@@ -10,21 +10,25 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [isOver, setIsOver] = useState(false);
     const [page, setPage] = useState(1);
-    const [isFetching, setIsFetching] = useState(false)
+    const [isFetching, setIsFetching] = useState(false);
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll)
-    }, [])
-
+        window.addEventListener("scroll", handleScroll);
+    }, []);
 
     useEffect(() => {
         if (!isFetching) return;
         loadNewPosts().then();
-    }, [isFetching])
+    }, [isFetching]);
 
     function handleScroll() {
-        if (document.body.offsetHeight - (window.pageYOffset + window.innerHeight) > 500) return;
-            setIsFetching(true);
+        if (
+            document.body.offsetHeight -
+                (window.pageYOffset + window.innerHeight) >
+            500
+        )
+            return;
+        setIsFetching(true);
     }
 
     useEffect(() => {
@@ -55,25 +59,35 @@ export default function Home() {
     // }, [])
 
     const loadNewPosts = async () => {
-        setIsFetching(true)
+        setIsFetching(true);
         let { data } = await QuestionsService.feed(page);
         setQuestions((questions) => [...questions, ...data.data]);
-        setPage(page => page+1);
+        setPage((page) => page + 1);
         if (data.current_page === data.last_page - 1) {
             setIsOver(true);
             setIsLoading(false);
+        } else {
+            setIsLoading(true);
         }
-        setIsFetching(false)
+        setIsFetching(false);
     };
 
     return (
         <PageLayout meta={{ title: "baza | home-page" }}>
+            
             <Welcome />
             {questions.map((question) => (
                 <Question key={question._id} question={question} />
             ))}
             <div className="text-center pb-5">
-                <span>No more posts</span>
+                {(isLoading || !isOver) && (
+                    <>
+                        <Question loading={true} />
+                        <Question loading={true} />
+                        <span>Loading some posts</span>
+                    </>
+                )}
+                {isOver && !isLoading && <span>No more posts</span>}
             </div>
         </PageLayout>
     );

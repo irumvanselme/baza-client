@@ -8,8 +8,9 @@ import { User } from "./User";
 import { AnswerAQuestion } from "./Question/Answer";
 import { isAuthed } from "../middlewares/auth";
 import { questionsService } from "../services";
+import Skeleton from "react-loading-skeleton";
 
-export function Question({ question }) {
+export function Question({ question, loading = false }) {
     const router = useRouter();
     const [liked, setLiked] = useState(false);
     const [disLiked, setDisLiked] = useState(false);
@@ -19,17 +20,19 @@ export function Question({ question }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLiked(question.likes_this);
-            setDisLiked(question.dislikes_this);
-            setId(question._id);
-            setLikes(question.likes);
-            setDisLikes(question.disLikes);
-            $("#popover" + question._id).popover({
-                trigger: "hover",
-                template: ReactDOMServer.renderToStaticMarkup(
-                    <User names={question.user.full_name} />
-                ),
-            });
+            if (!loading) {
+                setLiked(question.likes_this);
+                setDisLiked(question.dislikes_this);
+                setId(question._id);
+                setLikes(question.likes);
+                setDisLikes(question.disLikes);
+                $("#popover" + question._id).popover({
+                    trigger: "hover",
+                    template: ReactDOMServer.renderToStaticMarkup(
+                        <User names={question.user.full_name} />
+                    ),
+                });
+            }
         };
         fetchData().then();
     }, [question]);
@@ -71,6 +74,79 @@ export function Question({ question }) {
             await questionsService.dislike(question._id);
         } else await router.push("/auth/login");
     };
+
+    if (loading)
+        return (
+            <div>
+                <div className="card py-4 px-4 mb-4">
+                    <div className="header">
+                        <div className="d-flex justify-content-between align-items-start">
+                            <div className="question">
+                                <h4 className="text-left">
+                                    <Skeleton width={300} />
+                                </h4>
+                                <div>
+                                    <Skeleton width={100} />
+                                    <a>
+                                        {" "}
+                                        <Skeleton width={100} />{" "}
+                                    </a>
+                                    <span className="font-weight-bolder">
+                                        {" "}
+                                        <Skeleton width={100} />{" "}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="answer text-right">
+                                <div className="text-right">
+                                    <button
+                                        className="btn btn-sm btn-success px-4 d-none d-sm-inline"
+                                        data-toggle="modal"
+                                        disabled
+                                    >
+                                        Answer
+                                    </button>
+                                </div>
+                                <div className="text-right">
+                                    <i className="fa fa-bookmark-o pr-2 mt-2" />
+                                    <b>
+                                        <Skeleton width={13} />
+                                    </b>{" "}
+                                    <Skeleton width={60} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="body py-3">
+                        <Skeleton width={"80%"} />
+                        <Skeleton width={"60%"} />
+                    </div>
+                    <div className="actions d-flex justify-content-between pt-3">
+                        <div className="d-flex align-items-center">
+                            <div className="d-flex align-items-center">
+                                <div>
+                                    <Skeleton width={30} height={30} />
+                                </div>
+                                <div className="ml-1">
+                                    <Skeleton width={13} />
+                                </div>
+                            </div>
+                            <div className="d-flex ml-3 align-items-center">
+                                <div>
+                                    <Skeleton width={30} height={30} />
+                                </div>
+                                <div className="ml-1">
+                                    <Skeleton width={13} />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <Skeleton width={100} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
 
     return (
         <div>
