@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Services {}","map":{"version":3,"sources":["D:/Developments/anselme-dev/baza/client/services/services.js"],"names":["Services"],"mappings":"AAAA,OAAO,MAAMA,QAAN,CAAe","sourcesContent":["export class Services {}\n"]},"metadata":{},"sourceType":"module"}
