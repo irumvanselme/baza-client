@@ -55,15 +55,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    let questions = [],
-        topic;
     let { data } = await TopicService.get(params.id);
-    topic = data;
-
     return {
         props: {
-            questions,
-            topic,
+            topic: data,
         },
     };
 }
