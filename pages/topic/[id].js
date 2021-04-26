@@ -6,11 +6,13 @@ import PageLayout from "../../layouts/Page";
 
 export default function TopicPage({ topic }) {
     const [questions, setQuestions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             let questions = await TopicService.questions(topic.name);
             setQuestions(questions.data);
+            setLoading(false);
         };
         fetchData().then();
     }, [topic]);
@@ -22,6 +24,12 @@ export default function TopicPage({ topic }) {
     return (
         <PageLayout meta={meta}>
             <Topic topic={topic} />
+            {loading && (
+                <>
+                    <Question loading={true} />
+                    <Question loading={true} />
+                </>
+            )}
             {questions.map((question, i) => (
                 <Question key={i} question={question} />
             ))}
