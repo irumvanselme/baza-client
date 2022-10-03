@@ -10,7 +10,7 @@ export default function Footer() {
             <a href="#" className="px-1">
                 Ads
             </a>
-            <div className="border-top pt-2">Developed by codeIt </div>
+            <div className="border-top pt-2">Developed by irumvanselme </div>
         </div>
     );
 }
