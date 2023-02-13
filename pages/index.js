@@ -17,7 +17,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        if (!isFetching) return;
+        if (!isFetching || isOver) return;
         loadNewPosts().then();
     }, [isFetching]);
 
@@ -63,7 +63,7 @@ export default function Home() {
         let { data } = await QuestionsService.feed(page);
         setQuestions((questions) => [...questions, ...data.data]);
         setPage((page) => page + 1);
-        if (data.current_page === data.last_page - 1) {
+        if (data.current_page === data.last_page) {
             setIsOver(true);
             setIsLoading(false);
         } else {
