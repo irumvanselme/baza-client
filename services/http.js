@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const domain = "https://baza-app-apis.herokuapp.com/";
+export const domain = "https://proxy.okavaa.com/api/baza-apis/";
 
 let token = "";
 
