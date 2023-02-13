@@ -1,6 +1,5 @@
 export const questionInterface = {
     _id: "",
-    slug: "",
     title: "...",
     body: null,
     user_id: "",

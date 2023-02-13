@@ -230,7 +230,7 @@ export function Question({ question, loading = false }) {
                         </div>
                     </div>
                     <div>
-                        <Link href={`/questions/${question.slug}`} passHref>
+                        <Link href={`/questions/${question._id}`} passHref>
                             <a className="text-primary">Read more</a>
                         </Link>
                     </div>

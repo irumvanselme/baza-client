@@ -114,7 +114,7 @@ export function AskAQuestion({ askNewQuestion }) {
                                             >
                                                 {topics.map((topic, i) => (
                                                     <option
-                                                        value={topic._id}
+                                                        value={topic.name}
                                                         key={i}
                                                     >
                                                         {topic.name}

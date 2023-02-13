@@ -45,7 +45,7 @@ export function RightSidebar() {
                             questions.map((question, i) => (
                                 <div className="py-1" key={i}>
                                     <Link
-                                        href={`/questions/${question.slug}`}
+                                        href={`/questions/${question._id}`}
                                         passHref
                                     >
                                         <a>{question.title} ?</a>
